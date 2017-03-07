@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 
-require_relative '../bookmark_manager'
+require './app/bookmark_manager'
 require './app/models/link'
 
 require 'capybara'
