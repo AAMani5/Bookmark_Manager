@@ -1,2 +1,2 @@
-require './bookmark_manager'
+require './app/bookmark_manager'
 run BookmarkManager
