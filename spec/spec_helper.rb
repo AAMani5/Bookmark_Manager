@@ -1,4 +1,4 @@
-ENV['RACK_ENV'] = 'test'
+ENV['RACK_ENV'] = 'test' # by default it set to 'development'
 
 require './app/bookmark_manager'
 require './app/models/link'

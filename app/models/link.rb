@@ -10,6 +10,10 @@ class Link
 
 end
 
-DataMapper.setup(:default, 'postgres://localhost/bookmark_manager_test')
+DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{ENV['RACK_ENV']}")
 DataMapper.finalize
 DataMapper.auto_upgrade!
+
+
+# ENV['RACK_ENV'] by default is set to 'development' should be changed to 'test'
+# in spec_helper.rb when running tests
