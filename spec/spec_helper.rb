@@ -6,6 +6,7 @@ require './app/models/link'
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
+require 'database_cleaner'
 
 Capybara.app = BookmarkManager
 
@@ -29,6 +30,24 @@ Capybara.app = BookmarkManager
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+    # database cleaning  - before all (truncation - slower than transaction)
+    # after & before test transaction strategy which rolls back the changes
+    # hence is faster than truncation
+    # Everything in this block runs once before all the tests run
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  # Everything in this block runs once before each individual test
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  # Everything in this block runs once after each individual test
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
