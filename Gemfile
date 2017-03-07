@@ -8,3 +8,8 @@ group :test do
   gem 'rspec'
   gem 'capybara'
 end
+
+group :database do
+  gem 'data_mapper'
+  gem 'dm-postgres-adapter'
+end
