@@ -2,6 +2,7 @@ ENV['RACK_ENV'] = 'test' # by default it set to 'development'
 
 require './app/bookmark_manager'
 require './app/models/link'
+require './app/models/tag'
 
 require 'capybara'
 require 'capybara/rspec'
