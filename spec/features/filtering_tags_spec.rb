@@ -1,21 +1,21 @@
-feature "Filtering links by tags" do
+feature 'Viewing links' do
 
-  scenario "be able to filter links with tag 'bubbles'" do
-    visit('/links/new')
-    fill_in :title, with: 'Google'
-    fill_in :url, with: 'http://www.google.co.uk'
-    fill_in :tags, with: 'bubbles'
-    click_button 'Add Link'
-    visit('/links/new')
-    fill_in :title, with: 'BBC'
-    fill_in :url, with: 'http://www.google.co.uk'
-    fill_in :tags, with: 'news'
-    click_button 'Add Link'
-    visit ('/tags/bubbles')
-    within 'ul#tagged_bubbles' do # need to have this inside the unordered list not in general page
-      expect(page).to have_content('Google')
-      expect(page).to_not have_content('BBC')
-    end
+  before(:each) do
+    Link.create(url: 'http://www.makersacademy.com', title: 'Makers Academy', tags: [Tag.first_or_create(name: 'education')])
+    Link.create(url: 'http://www.google.com', title: 'Google', tags: [Tag.first_or_create(name: 'search')])
+    Link.create(url: 'http://www.zombo.com', title: 'This is Zombocom', tags: [Tag.first_or_create(name: 'bubbles')])
+    Link.create(url: 'http://www.bubble-bobble.com', title: 'Bubble Bobble', tags: [Tag.first_or_create(name: 'bubbles')])
   end
 
+  scenario 'I can filter links by tag' do
+    visit '/tags/bubbles'
+
+    expect(page.status_code).to eq(200)
+    within 'ul#links' do
+      expect(page).not_to have_content('Makers Academy')
+      expect(page).not_to have_content('Code.org')
+      expect(page).to have_content('This is Zombocom')
+      expect(page).to have_content('Bubble Bobble')
+    end
+  end
 end
