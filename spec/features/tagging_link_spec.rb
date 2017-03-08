@@ -6,9 +6,8 @@ feature "Creating new links" do
     fill_in :url, with: 'http://www.google.co.uk'
     fill_in :tags, with: 'search'
     click_button 'Add Link'
-    within 'ul#links' do # need to have this inside the unordered list not in general page
-      expect(page).to have_content('Google')
-    end
+    link = Link.first
+    expect(link.tags.map(&:name)).to include('search')
   end
 
 end
