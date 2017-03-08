@@ -12,6 +12,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/links' do
     @links = Link.all
+    @user = User.first
     erb :'links/index'
   end
 
@@ -33,6 +34,15 @@ class BookmarkManager < Sinatra::Base
     tag = Tag.first(:name => params[:name])
     @links = tag ? tag.links : []
     erb :'links/index'
+  end
+
+  post '/signup' do
+    User.first_or_create(:email => params[:email], :password => params[:password])
+    redirect '/links'
+  end
+
+  get '/signup' do
+    erb :'links/signup'
   end
 
   run if app_file == $0
