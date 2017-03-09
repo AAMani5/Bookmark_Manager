@@ -6,7 +6,7 @@ feature "Sign Up for services" do
     fill_in :password, with: '1234'
     expect{click_button 'Sign Up'}.to change{User.count}.by 1
     expect(page).to have_current_path('/links')
-    expect(page).to have_content('Hello test@test.com, Welcone to BookmarkManager')
+    expect(page).to have_content('Welcome, test@test.com')
   end
 
 end

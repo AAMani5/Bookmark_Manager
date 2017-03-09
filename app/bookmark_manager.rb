@@ -11,7 +11,7 @@ class BookmarkManager < Sinatra::Base
 
   helpers do
     def current_user
-      @current_user ||= User.first(session[:user_id])
+      @current_user ||= User.first(:id => session[:user_id])
     end
   end
 
@@ -21,7 +21,6 @@ class BookmarkManager < Sinatra::Base
 
   get '/links' do
     @links = Link.all
-    @user = User.first
     erb :'links/index'
   end
 
