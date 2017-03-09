@@ -5,6 +5,14 @@ require './app/data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
 
+  use Rack::Session::Pool, :expire_after => 2592000
+  # enable :sessions
+
+  helpers do
+    def current_user
+      @current_user ||= User.first(session[:user_id])
+    end
+  end
 
   get '/' do
     "Hello World" # infrastructure set-up check
@@ -37,7 +45,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/signup' do
-    User.first_or_create(:email => params[:email], :password => params[:password])
+    user = User.first_or_create(:email => params[:email], :password => params[:password])
+    session[:user_id] = user.id
     redirect '/links'
   end
 
