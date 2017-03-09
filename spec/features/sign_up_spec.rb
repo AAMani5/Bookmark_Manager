@@ -4,6 +4,7 @@ feature "Sign Up for services" do
     visit('/users/new')
     fill_in :email, with: 'test@test.com'
     fill_in :password, with: '1234'
+    fill_in :password_confirmation, with: '1234'
     expect{click_button 'Sign Up'}.to change{User.count}.by 1
     expect(page).to have_current_path('/links')
     expect(page).to have_content('Welcome, test@test.com')
