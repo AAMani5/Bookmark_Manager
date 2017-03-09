@@ -5,8 +5,9 @@ require './app/data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
 
-  use Rack::Session::Pool, :expire_after => 2592000
-  # enable :sessions
+  # use Rack::Session::Pool, :expire_after => 2592000
+  enable :sessions
+  set :session_secret, 'secret'
 
   helpers do
     def current_user
