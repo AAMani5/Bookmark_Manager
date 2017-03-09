@@ -21,10 +21,10 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-    link = Link.create(url: params[:url], title: params[:title])
+    link = Link.first_or_create(url: params[:url], title: params[:title])
     tag_names = params[:tags].split
     tag_names.each do |tag_name|
-      tag = Tag.first_or_create(name: tag_name ) # first_or_create so that it doesn't create a new one if one already exists
+      tag = Tag.first_or_create(name: tag_name.downcase ) # first_or_create so that it doesn't create a new one if one already exists
       LinkTag.first_or_create(:link => link, :tag => tag ) # creates the necessary relation between the two(link.tags << tag & link.save)
     end
     redirect '/links'
