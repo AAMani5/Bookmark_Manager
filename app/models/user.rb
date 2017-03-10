@@ -27,4 +27,13 @@ class User
   # validates_format_of :email, as: :email_address # :format => :email_address with property creates this line implicitly
   validates_confirmation_of :password, :message => "Password and confirmation password do not match" # model will save and be valid only if password == password_confirmation
   # validates_presence_of :email # can also say :required => true when property decalred
+
+  def self.authenticate(email, password)
+    user = first(email: email)
+    if user && BCrypt::Password.new(user.password_salt) == password
+      user
+    else
+      nil
+    end
+  end
 end
