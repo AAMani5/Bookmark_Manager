@@ -52,7 +52,7 @@ class BookmarkManager < Sinatra::Base
       session[:user_id] = @user.id
       redirect '/links'
     else
-      flash.now[:notice] = "Password and confirmation password do not match"
+      @user.errors.each{|e| flash.now[:message] = e.first} # = "Password and confirmation password do not match"
       erb :'links/signup'
     end
   end
