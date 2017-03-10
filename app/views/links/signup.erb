@@ -1,9 +1,10 @@
-<form id="signup" action="/users" method="POST" class="welcome">
-    <p><label>Email</label>
-    <input type="text" name="email" value="<%= @user.email %>" placeholder="example@eg.com"/></p>
-    <p><label>Password</label>
-    <input type="password" name="password"/></p>
-    <p><label>Confirm Password</label>
-    <input type="password" name="password_confirmation"/></p>
-    <p><input type="submit" value="Sign Up"/></p>
-</form>
+
+        <form id="signup" action="/users" method="POST" class="welcome">
+            <p><label>Email</label>
+            <input type="email" name="email" value="<%= @user.email %>" placeholder="example@eg.com" required/></p>
+            <p><label>Password</label>
+            <input type="password" name="password" required/></p>
+            <p><label>Confirm Password</label>
+            <input type="password" name="password_confirmation" required/></p>
+            <p><input type="submit" value="Sign Up"/></p>
+        </form>
