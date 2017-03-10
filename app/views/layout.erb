@@ -9,8 +9,8 @@
     <% if current_user %>
       Welcome, <%= current_user.email %>
     <% end %>
-    <% if flash[:notice] %>
-      <div id='notice'><%= flash[:notice] %></div>
+    <% if flash[:message] %>
+      <div id='notice'><%= flash[:message] %></div>
     <% end %>
     <%= yield %>  <!-- this then yields to the view which has been called by your controller -->
   </body>
