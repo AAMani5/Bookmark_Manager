@@ -4,7 +4,7 @@ class User
   include DataMapper::Resource
 
   property :id,         Serial
-  property :email,      String
+  property :email,      String, :required => true
   property :password_salt,   Text
 
   attr_accessor :password_confirmation # write access for User.create method in bookmark_manager.rb, read access for validates_confirmation_of method
@@ -19,6 +19,7 @@ class User
     self.password_salt = BCrypt::Password.create(password)
   end
 
+  validates_format_of :email, as: :email_address
   validates_confirmation_of :password  # model will save and be valid only if password == password_confirmation
-
+  # validates_presence_of :email # can also say :required => true when property decalred
 end
