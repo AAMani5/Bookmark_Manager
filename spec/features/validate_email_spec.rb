@@ -6,7 +6,7 @@ feature "Data Validation" do
     fill_in :password_confirmation, with: 'firstone'
     expect{click_button 'Sign Up'}.to_not change(User, :count)
     expect(page).to have_current_path('/users')
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content 'We need your email address.'
   end
 
   scenario "validates that the email is valid" do
@@ -16,7 +16,7 @@ feature "Data Validation" do
     fill_in :password_confirmation, with: 'firstone'
     expect{click_button 'Sign Up'}.to_not change(User, :count)
     expect(page).to have_current_path('/users')
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content "Doesn't look like an email address to me ..."
   end
 
 end
